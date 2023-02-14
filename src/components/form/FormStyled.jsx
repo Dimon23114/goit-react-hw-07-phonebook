@@ -1,13 +1,14 @@
 import styled from "@emotion/styled";
 
 export const FormBox = styled.div`
-padding: 16px;
+// padding: 16px;
 width: 360px;
 display: flex;
 flex-direction: column;
 `;
 
 export const ButtonAdd = styled.button`
+margin-top: 16px;
 min-width: 200px;
 height: 40px;
 font-size: 20px;
@@ -23,7 +24,7 @@ border-radius: 4px;
 `;
 
 export const LabelBox = styled.label`
-font-size: 36px;
+font-size: 24px;
 `;
 
 export const InputBox = styled.input`
@@ -34,6 +35,6 @@ border-radius: 4px;
 
 &:focus,
 &:hover {
-    border-color: green;
+    border-color: orange;
 }
 `;

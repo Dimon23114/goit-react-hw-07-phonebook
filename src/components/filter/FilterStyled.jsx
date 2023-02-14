@@ -12,6 +12,6 @@ border-radius: 4px;
 
 &:focus,
 &:hover {
-    border-color: green;
+    border-color: orange;
 }
 `;

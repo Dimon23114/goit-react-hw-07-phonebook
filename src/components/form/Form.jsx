@@ -1,8 +1,8 @@
 import { nanoid } from 'nanoid';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from '../../redux/contactsSlice';
-import { getContacts } from '../../redux/selectors';
+import { addContact } from '../../redux/operations';
+import { getItems } from '../../redux/selectors';
 import { FormBox, ButtonAdd, InputBox, LabelBox } from './FormStyled';
 
 
@@ -13,23 +13,19 @@ const numberInputId = nanoid(8)
 const Form = () => {
 
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setPhone] = useState('');
 
-  const contacts = useSelector(getContacts);
+  const items = useSelector(getItems);
   const dispatch = useDispatch();
 
   const handleInputChange = (e) => {
-    // const target = e.target.type;
-    // const val = e.target.value;
-    const {value, name} = e.target;  
+    const {name, value} = e.currentTarget;  
     
     switch(name) {
       case "number":
-        setNumber(value); 
-        break;
+        return setPhone(value); 
       case "name":
-        setName(value); 
-        break;
+        return setName(value); 
       default:
       return;
     }
@@ -37,32 +33,30 @@ const Form = () => {
 
   
   const chekingContacts = () => {
-    const findContact = contacts.find((contact) => contact.name === name);
+    const findContact = items.find((item) => item.name === name);
 
     if (findContact) { 
       alert(`${name} is already in contacts`);      
     } 
       else { 
-      alert(`${name} has been added`);
-      return (dispatch(addContact(name, number)))      
+      alert(`${name} has been added`);    
+      return(dispatch(addContact({name, phone}))
+      )  
     }             
   };
 
 
-
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    chekingContacts();
-    
+    chekingContacts()
     setName('');
-    setNumber('');
+    setPhone('');
       };
 
 
   return(
     <FormBox>
-      <form action="" onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <LabelBox>Name
           <InputBox
             type="text"
@@ -84,7 +78,7 @@ const Form = () => {
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
             onChange={handleInputChange}
-            value={number}  
+            value={phone}  
             id={numberInputId}            
           />  
         </LabelBox>
